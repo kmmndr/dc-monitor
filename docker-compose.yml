@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  collector:
+    build: collector
+    volumes:
+      - collectd:/var/lib/collectd
+
+  monitor:
+    build: monitor
+    volumes:
+      - collectd:/var/lib/collectd:ro
+    ports:
+      - 2000:8080
+
+volumes:
+  collectd:
