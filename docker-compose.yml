@@ -5,6 +5,8 @@ services:
     build: collector
     volumes:
       - collectd:/var/lib/collectd
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    # entrypoint: sh -c 'while true; do sleep 60; done'
 
   monitor:
     build: monitor
