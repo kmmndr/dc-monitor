@@ -1,0 +1,19 @@
+version: "3.8"
+
+services:
+  monitor:
+    networks:
+      - traefik_default
+      - default
+    labels:
+      - "traefik.port=8080"
+      - "traefik.enable=true"
+      - "traefik.http.routers.monitor.rule=Host(`${APP_FQDN:-localhost}`)"
+      - "traefik.http.routers.monitor.entrypoints=web"
+      - "traefik.http.routers.monitor-tls.rule=Host(`${APP_FQDN:-localhost}`)"
+      - "traefik.http.routers.monitor-tls.entrypoints=websecure"
+      - "traefik.http.routers.monitor-tls.tls.certresolver=default"
+
+networks:
+  traefik_default:
+    external: true
