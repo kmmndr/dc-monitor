@@ -3,11 +3,16 @@ version: "3.8"
 services:
   collector:
     build: collector
+    container_name: "collectd-collector"
     volumes:
       - collectd:/var/lib/collectd
 
   monitor:
     build: monitor
+    container_name: "collectd-monitor"
+    environment:
+      MONITOR_LOGIN: ${MONITOR_LOGIN:-admin}
+      MONITOR_PASSWORD: ${MONITOR_PASSWORD:-}
     volumes:
       - collectd:/var/lib/collectd:ro
 

@@ -5,7 +5,13 @@
 
 http://:8080 {
   root * /www
-  log
+  log {
+    level ERROR
+  }
+
+  basicauth scrypt {
+    {$MONITOR_LOGIN} {$MONITOR_PASSWORD}
+  }
 
   handle_errors {
     respond "Under maintenance, please come back later"
@@ -33,6 +39,7 @@ http://:8080 {
   @phpFiles {
     path *.php
   }
+
   reverse_proxy @phpFiles 127.0.0.1:9000 {
     transport fastcgi {
       split .php
