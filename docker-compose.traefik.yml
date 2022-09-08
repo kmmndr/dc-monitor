@@ -12,7 +12,7 @@ services:
       - "traefik.http.routers.monitor.entrypoints=web"
       - "traefik.http.routers.monitor-tls.rule=Host(`${APP_FQDN:-localhost}`)"
       - "traefik.http.routers.monitor-tls.entrypoints=websecure"
-      - "traefik.http.routers.monitor-tls.tls.certresolver=default"
+      - "traefik.http.routers.monitor-tls.tls.certresolver=default-tls"
 
 networks:
   traefik_default:
