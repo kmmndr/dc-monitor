@@ -1,6 +1,8 @@
 FROM alpine:3.15
+RUN sed -i -e 's|^\(.*\)v[0-9.]*/main|@edge-testing \1edge/testing\n&|' /etc/apk/repositories
 
 RUN apk add --no-cache \
+  goreman@edge-testing \
   ca-certificates
 
 # Caddy
@@ -11,6 +13,8 @@ RUN apk add --no-cache caddy \
  && chown -R www:www /www
 
 COPY Caddyfile /etc
+COPY Procfile /
+COPY entrypoint.sh /
 
 # PHP
 
@@ -36,8 +40,6 @@ RUN curl -L https://github.com/pommi/CGP/archive/$CGP_COMMIT.tar.gz \
       | tar -C $INSTALL_PATH --strip-components=1 -xzf - \
  && chown -R root:root $INSTALL_PATH \
  && chmod -R 555 $INSTALL_PATH
-
-COPY entrypoint.sh /
 
 EXPOSE 8080
 

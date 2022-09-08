@@ -1,0 +1,2 @@
+php: php-fpm7 -F
+caddy: caddy run -config /etc/Caddyfile
